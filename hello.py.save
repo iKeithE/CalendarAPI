@@ -1,0 +1,37 @@
+from flask import Flask, jsonify
+import json
+
+app = Flask(__name__)
+
+calenders = [
+	{
+	   'id':1,
+	   'title': u'Milk, Eggs'
+	},
+	{ 
+           'id':2,
+           'title': u'The second list'
+        }
+]
+
+@app.route(/api/calenders, methods = ['GET'])
+def get_calenders():
+	return jsonify({'calenders':calenders})
+
+
+
+
+
+
+
+
+]
+@app.route('/calenders/<id>')
+def calenders(id):
+	return json.dumps(calenders)
+
+if __name__ == '__main__':
+	app.run()
+
+
+

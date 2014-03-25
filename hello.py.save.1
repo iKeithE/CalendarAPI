@@ -1,0 +1,90 @@
+from flask import Flask, jsonify, abort, request
+import json
+
+
+app = Flask(__name__)
+
+calendars =  [
+	{'calendar_id': 100, 'entries': [
+		{'id': 1,
+        	 'date':'22-02-1991',
+		 'description':'Meeting Bob at Spar for a roll.',
+        	 'startTime':'19:30',
+		 'endTime':'22:30',
+		 'repeats':'Monthly',
+		 'location':'www.maps.google.com/location' 
+		},
+
+		{'id': 2,
+		'date':'12-12-2991',
+                'description':'Meeting Bob at Spar for a roll.',
+                'startTime':'16:30',
+                'endTime':'22:20',
+                'repeats':'Daily',
+                'location':'www.maps.google.com/location2'
+		 },
+		]
+	}
+]
+
+#Working -  curl -i 
+@app.route('/api/get/calendars', methods = ['GET'])
+def get_calendars():
+	return jsonify( {'calendars' : calendars} ) 
+
+@app.route('/api/get/calendars/<int:id>', methods = ['GET'])
+def get_entry(id):
+	calendar = filter(lambda t: t['calendar_id'] == id, calendars)
+	if len(calendar) == 0:
+	   abort(404)
+	return jsonify( {'calendar': calendar[0] } )
+
+#Working -  curl -i http://127.0.0.1:5000/api/create/calendars/200
+@app.route('/api/create/calendars/<int:id>')
+def create_calendar(id):
+	calendars.append({'calendar_id': id, 'entries':{} } )
+	return jsonify( {'calendar' : calendars } )
+# curl -i http://127.0.0.1:5000/api/create/calendars/200
+
+
+#Not Working - Internal Server Error
+@app.route('/api/calendars', methods = ['POST'])
+def create_entry():
+	if not request.json or not 'date' in request.json:
+	   abort(400)
+	calendar = {
+	   'id': calendars[-1]['calendar_id'] + 1,
+	   'date': request.json['date'],
+	   'description': request.json.get('description',"")
+		}
+	calendar.append(calendars)
+	return jsonify( {'calendars' : calendars } ), 201
+
+
+
+@app.route('/api/put/calendars/<int:id>', methods = ['PUT'])
+def update_entry(id):
+	calendar = filter(lambda t: t['calendar_id'] == id, calendars)
+	if len(calendar) == 0:
+		abort(404)
+	if not request.json:
+		abort(400)
+	if 'date' in request.json and type(request.json['date']) != unicode:
+		abort(400)
+	if 'description' in request.json and type(request.json['description']) is not unicode:
+		 abort(400)
+	calendar[0]['date'] = request.json.get('date', calendar[0]['date']) 
+	calendar[0]['description'] = request.json.get('description', calendar[0]['description'])
+	return jsonify( {'calendar' : calendar} )
+
+@app.route('/api/delete/calendars/<int:id>', methods = ['DELETE'])
+def delete_entry(id):
+	calendar = filter(lambda t: t['calendar_id'] == id, calendars)
+	if len(calendar) == 0:
+		abort(404)
+	calendars.remove(calendar[0])
+	return "Deleted"
+
+
+if __name__ == '__main__':
+	app.run(debug = True)
