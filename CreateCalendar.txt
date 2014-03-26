@@ -1,0 +1,30 @@
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 19
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:29:02 GMT
+
+Calendar created!
+=============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/501 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 19
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:30:16 GMT
+
+Calendar created!
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/501 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 25
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:37:11 GMT
+
+Calendar already exists
+=============================================================================
