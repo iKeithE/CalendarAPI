@@ -1,0 +1,40 @@
+
+venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 22
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:44:43 GMT
+
+New Calendar Created
+=============================================================================
+
+(venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -d '{"date":"22nd Feb 1991"}'  http://127.0.0.1:5000/api/calendars/500/1 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 15
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:45:31 GMT
+
+Entry Created
+==============================================================================
+
+venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -d '{"date":"21nd Feb 1992"}'  http://127.0.0.1:5000/api/calendars/500/1 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 55
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:46:52 GMT
+
+Entry ID already exists, please choose a new entry ID
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -d '{"date":"21nd Feb 1992"}'  http://127.0.0.1:5000/api/calendars/501/1 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 15
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:48:22 GMT
+
+Entry Created
+
