@@ -1,1 +1,1 @@
-web: gunicorn -c conf.py hello:app
+web: gunicorn -c conf.py CalendarAPI:app
