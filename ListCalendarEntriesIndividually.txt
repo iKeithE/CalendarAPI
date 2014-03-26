@@ -1,0 +1,64 @@
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 22
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:14:53 GMT
+
+New Calendar Created
+=============================================================================
+
+(venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -X POST -d '{"date":"31st March 2015"}' http://127.0.0.1:5000/api/calendars/500/1
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 15
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:16:19 GMT
+
+Entry Created
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -X POST -d '{"date":"31st March 2015"}' http://127.0.0.1:5000/api/calendars/500/2
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 15
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:16:41 GMT
+
+Entry Created
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -X GET  http://127.0.0.1:5000/api/calendars/500/2
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 147
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:17:20 GMT
+
+{
+  "date": "31st March 2015", 
+  "description": "", 
+  "end-time": "", 
+  "entry_ID": 2, 
+  "location": "", 
+  "repeat": "", 
+  "start-time": ""
+
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -X GET  http:/127.0.0.1:5000/api/calendars/500/1
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 147
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:18:06 GMT
+
+{
+  "date": "31st March 2015", 
+  "description": "", 
+  "end-time": "", 
+  "entry_ID": 1, 
+  "location": "", 
+  "repeat": "", 
+  "start-time": ""
+==============================================================================
