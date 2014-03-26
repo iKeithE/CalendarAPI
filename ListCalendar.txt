@@ -1,0 +1,89 @@
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 22
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:56:36 GMT
+
+New Calendar Created
+=============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/501 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 22
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:56:41 GMT
+
+New Calendar Created
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/501 -X GET
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 61
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:58:00 GMT
+
+{
+  "calendar": {
+    "cal_ID": 501, 
+    "entries": []
+  }
+==============================================================================
+
+}(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars -X GET
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 777
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 14:58:42 GMT
+
+{
+  "calendars": [
+    {
+      "cal_ID": 100, 
+      "entries": []
+    }, 
+    {
+      "cal_ID": 101, 
+      "entries": [
+        {
+          " locations": "maps.google.ie/bisto", 
+          "date": "21st Feb 2014", 
+          "description": "Going out", 
+          "end-time": "1am", 
+          "entry_ID": 1, 
+          "repeats": "daily", 
+          "start-time": "9pm"
+        }, 
+        {
+          "date": "13th Mar 2015", 
+          "description": "My Birthday", 
+          "end-time": "4pm", 
+          "entry_ID": 2, 
+          "locations": "maps.google.ie/dit", 
+          "repeats": "weekly", 
+          "start-time": "9am"
+        }
+      ]
+    }, 
+    {
+      "cal_ID": 500, 
+      "entries": []
+    }, 
+    {
+      "cal_ID": 501, 
+      "entries": []
+    }
+  ]
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/600 -X GET
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 22
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:03:17 GMT
+
+No existing calendar
