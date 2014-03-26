@@ -13,6 +13,13 @@ calendars =  [
 	     ]   #End of calendars list
 	
 
+#Initially show the calendars
+#
+@app.route('/')
+def start_page():
+	return jsonify( { 'calendars':calendars } )
+
+
 #Working - Returns all calendars in JSON format
 # curl = curl http://127.0.0.1:5000/api/calendars -X GET 
 @app.route('/api/calendars', methods = ['GET'])
@@ -21,12 +28,12 @@ def get_calendars():
 
 #Working - Returns calendar and events within for provided cal_ID
 # curl = curl http://127.0.0.1:5000/api/calendars/100 -X GET 
-@app.route('/api/calendars/<int:id>', methods = ['GET'])
-def get_entry(id):
-	calendar = filter(lambda t: t['cal_ID'] == id, calendars)
-	if len(calendar) == 0:
-	   abort(404)
-	return jsonify( {'calendar': calendar[0] } )
+@app.route('/api/calendars/<int:cal_ID>', methods = ['GET'])
+def get_entry(cal_ID):
+	for temp_c in calendars:
+		if temp_c['cal_ID'] == cal_ID:
+			return jsonify( {'calendar': calendar[0] } )
+		return "No existing calendar\n\n"
 
 # Get entry from calendar with cal_ID and entry_ID
 # curl - 
@@ -39,15 +46,20 @@ def get_enrty_from_calendar(cal_ID, entry_ID):
 					temp_c['entires'].remove({})
 				elif temp_e['entry_ID'] == entry_ID:
 					return jsonify(temp_e)
-	return "No such entry found in calendar"
+	return "No such entry found in calendar\n\n"
 
 
 #Working -  Create a calendar with provided cal_ID
 # curl = curl http://127.0.0.1:5000/api/calendars/102 -X POST
-@app.route('/api/calendars/<int:id>', methods = ['POST'])
-def create_calendar(id):
-	calendars.append({'cal_ID': id, 'entries':[] } )
-	return "Calendar created!\n\n"
+@app.route('/api/calendars/<int:cal_ID>', methods = ['POST'])
+def create_calendar(cal_ID):
+	for temp_c in calendars:
+		if temp_c['cal_ID'] == cal_ID:
+			return "Calendar already exists\n\n"
+	newCalendar = { 'cal_ID': cal_ID, 'entries': [] }
+	calendars.append(newCalendar)
+	return "New Calendar Created\n\n"
+
 
 #Working - Create entry in calendar with provided cal_ID and the provided enrty_ID
 # curl -i -H "Content-Type: application/json" -X POST -d '{"date":"31st March 2015"}' http://127.0.0.1:5000/api/calendars/100/4
@@ -125,7 +137,8 @@ def delete_Calendar_Entry(cal_ID, entry_ID):
 					temp_e.clear()
 					temp_c['entries'].remove({})
 					return "Entry Deleted\n"
-	return "Entry does no exist in calendar\n"
+			return "Entry does no exist\n\n"
+	return "Calendar does no exist\n\n"
 
 #Delete calender with the given cal_ID
 # curl = curl -i -X DELETE http://localhost:5000/api/calendars/105 
