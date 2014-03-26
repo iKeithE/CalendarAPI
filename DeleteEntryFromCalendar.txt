@@ -1,0 +1,60 @@
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500 -X POST
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 22
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:38:12 GMT
+
+New Calendar Created
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i -H "Content-Type: application/json" -X POST -d '{"date":"31st Aug 2014"}' http://127.0.0.1:5000/api/calendars/500/1
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 15
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:38:40 GMT
+
+Entry Created
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500/1 -X DELETE
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 14
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:39:48 GMT
+
+Entry Deleted
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500/1 -X DELETE
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 32
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:39:54 GMT
+
+Entry does no exist in calendar
+==============================================================================
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/500/1 -X DELETE
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 14
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:43:50 GMT
+
+Entry Deleted
+(venv)keith@ubuntu:~$ clear
+
+(venv)keith@ubuntu:~$ curl -i http://127.0.0.1:5000/api/calendars/505/1 -X DELETE
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 24
+Server: Werkzeug/0.9.4 Python/2.7.5+
+Date: Wed, 26 Mar 2014 15:44:26 GMT
+
+Calendar does no exist
+
